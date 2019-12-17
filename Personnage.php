@@ -119,4 +119,10 @@ class Personnage
     }
   }
 
+  public function nomValide()
+  {
+    return !empty($this->_nom);
+  }
+
 }
+
