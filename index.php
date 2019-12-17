@@ -86,7 +86,6 @@ elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le fr
         case Personnage::PERSONNAGE_FRAPPE :
           $message = 'Le personnage a bien été frappé !';
           
-          $manager->update($perso);
           $manager->update($persoAFrapper);
           
           break;
