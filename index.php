@@ -57,6 +57,19 @@ elseif (isset($_POST['utiliser']) && isset($_POST['nom'])) // Si on a voulu util
   }
 }
 
+elseif (isset($_POST['fillbdd']))
+{
+  $manager->fillBdd();
+}
+
+elseif (isset($_POST['deletebdd']))
+{
+  $manager->deleteBdd();
+}
+
+
+
+
 elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le frapper.
 {
   if (!isset($perso))
@@ -128,8 +141,19 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
         Nom : <?= htmlspecialchars($perso->nom()) ?><br />
         Dégâts : <?= $perso->degats() ?><br />
         Niveau : <?= $perso->niveau() ?><br />
+        Force : <?= $perso->force() ?><br />
         Expérience : <?= $perso->experience() ?><br />
       </p>
+    </fieldset>
+
+    <fieldset>
+      <legend>Gestion BDD</legend>
+      <form action="" method="post">
+      <p>
+        <input type="submit" value="Remplir la BDD" name="fillbdd" />
+        <input type="submit" value="Supprimer la BDD" name="deletebdd" />
+      </p>
+    </form>
     </fieldset>
     
     <fieldset>
@@ -147,7 +171,7 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
     {
       foreach ($persos as $unPerso)
       {
-        echo '<a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()), '</a> (dégâts : ', $unPerso->degats(), ' | niveau : ', $unPerso->niveau(), ')<br />';
+        echo '<a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()), '</a> (dégâts : ', $unPerso->degats(), ' | niveau : ', $unPerso->niveau(), ' | force : ', $unPerso->force(), ')<br />';
       }
     }
     ?>
@@ -162,7 +186,9 @@ else
       <p>
         Nom : <input type="text" name="nom" maxlength="50" />
         <input type="submit" value="Créer ce personnage" name="creer" />
-        <input type="submit" value="Utiliser ce personnage" name="utiliser" />
+        <input type="submit" value="Utiliser ce personnage" name="utiliser" /><br><br>
+        <input type="submit" value="Remplir la BDD" name="fillbdd" />
+        <input type="submit" value="Supprimer la BDD" name="deletebdd" />
       </p>
     </form>
     <?php

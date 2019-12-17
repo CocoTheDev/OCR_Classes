@@ -70,7 +70,7 @@ public function update(Personnage $perso)
   // update d'un personnage - SQL Update
   $req = $this->_db->prepare('
     UPDATE Personnages
-    SET nom = :nom, degats = :degats, niveau = :niveau, experience = :experience
+    SET nom = :nom, degats = :degats, niveau = :niveau, experience = :experience, force = :force
     WHERE id = :id
   ');
   $req->bindValue(':nom', $perso->nom());
@@ -78,6 +78,7 @@ public function update(Personnage $perso)
   $req->bindValue(':id', $perso->id());
   $req->bindValue(':niveau', $perso->niveau());
   $req->bindValue(':experience', $perso->experience());
+  $req->bindValue(':force', $perso->force());
   $req->execute();
 
 }
@@ -149,6 +150,33 @@ public function count()
     echo "BDD vide";
   }
 }
+
+public function fillBdd() 
+{
+// Insert de personnage en bdd
+for ($i=0; $i<10 ; $i++)
+{
+  $perso = new Personnage(['nom' => "Luffy$i"]);
+  $this->add($perso);
+}
+}
+
+public function deleteBdd() 
+{
+$req = $this->_db->prepare('TRUNCATE TABLE Personnages');
+$req->execute();
+}
+
+
+
+
+
+
+
+
+
+
+
 
 }
 

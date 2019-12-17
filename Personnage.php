@@ -5,7 +5,8 @@ class Personnage
           $_degats,
           $_nom,
           $_niveau,
-          $_experience;
+          $_experience,
+          $_force;
   
   const CEST_MOI = 1;
   const PERSONNAGE_TUE = 2;
@@ -63,6 +64,11 @@ class Personnage
   public function niveau() 
   {
     return $this->_niveau;
+  }
+
+  public function force() 
+  {
+    return $this->_force;
   }
 
 
@@ -123,6 +129,19 @@ class Personnage
       }
   }
 
+  public function setForce($force)
+  {
+      $force = (int) $force;
+      if ($force > 0)
+      {
+          $this->_force = $force*$this->niveau();
+      }
+      else 
+      {
+          return "Force non valide";
+      }
+  }
+
   // DO METHODS
   public function frapper(Personnage $persoAFrapper)
   {
@@ -137,17 +156,17 @@ class Personnage
     else 
     {
         $this->gagnerExperience();
-        return $persoAFrapper->recevoirDegats();
+        return $persoAFrapper->recevoirDegats($this->_force);
     }
     
   }
   
-  public function recevoirDegats()
+  public function recevoirDegats($forceAdversaire)
   {
-    // On augmente de 5 les dégâts.
+    // On augmente les dégâts proportionnellement à la force.
     // Si on a 100 de dégâts ou plus, la méthode renverra une valeur signifiant que le personnage a été tué.
     // Sinon, elle renverra une valeur signifiant que le personnage a bien été frappé.
-    $this->_degats += 35;
+    $this->_degats = ( $this->_degats*$forceAdversaire );
     if ($this->_degats >= 100) 
     {
         return self::PERSONNAGE_TUE;
