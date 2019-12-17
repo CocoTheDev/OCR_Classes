@@ -70,12 +70,14 @@ public function update(Personnage $perso)
   // update d'un personnage - SQL Update
   $req = $this->_db->prepare('
     UPDATE Personnages
-    SET nom = :nom, degats = :degats
+    SET nom = :nom, degats = :degats, niveau = :niveau, experience = :experience
     WHERE id = :id
   ');
   $req->bindValue(':nom', $perso->nom());
   $req->bindValue(':degats', $perso->degats());
   $req->bindValue(':id', $perso->id());
+  $req->bindValue(':niveau', $perso->niveau());
+  $req->bindValue(':experience', $perso->experience());
   $req->execute();
 
 }
@@ -124,7 +126,7 @@ public function exists($info)
   }
   elseif (is_string($info))
   {
-    $req = $this->_db->prepare('SELECT COUNT(*) FROM personnages WHERE nom = ?');
+    $req = $this->_db->prepare('SELECT COUNT(*) FROM Personnages WHERE nom = ?');
     $req->execute(array($info));
     return (bool) $req->fetchColumn();
   }
@@ -137,7 +139,15 @@ public function exists($info)
 public function count() 
 {
   // Exécute une requête COUNT() et retourne le nombre de résultats retourné.
-  return $this->_db->query('SELECT COUNT(*) FROM personnages')->fetchColumn();
+  $req = $this->_db->query('SELECT COUNT(*) FROM Personnages')->fetchColumn();
+  if ($req == TRUE) 
+  {
+    return $req;
+  }
+  else 
+  {
+    echo "BDD vide";
+  }
 }
 
 }

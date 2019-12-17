@@ -3,7 +3,9 @@ class Personnage
 {
   private $_id,
           $_degats,
-          $_nom;
+          $_nom,
+          $_niveau,
+          $_experience;
   
   const CEST_MOI = 1;
   const PERSONNAGE_TUE = 2;
@@ -53,6 +55,16 @@ class Personnage
     return $this->_degats;
   }
 
+  public function experience() 
+  {
+    return $this->_experience;
+  }
+
+  public function niveau() 
+  {
+    return $this->_niveau;
+  }
+
 
   // SETTERS //
   public function setId($id) 
@@ -75,7 +87,7 @@ class Personnage
   public function setDegats($degats)
   {
       $degats = (int) $degats;
-      if ($degats >= 0 && $degats <= 100)
+      if ($degats >= 0)
       {
           $this->_degats = $degats;
       }
@@ -85,20 +97,47 @@ class Personnage
       }
   }
 
+  public function setExperience($experience)
+  {
+      $experience = (int) $experience;
+      if ($experience >= 0)
+      {
+          $this->_experience = $experience;
+      }
+      else 
+      {
+          return "Expérience reçue non valide";
+      }
+  }
+
+  public function setNiveau($niveau)
+  {
+      $niveau = (int) $niveau;
+      if ($niveau > 0)
+      {
+          $this->_niveau = $niveau;
+      }
+      else 
+      {
+          return "Niveau non valide";
+      }
+  }
+
   // DO METHODS
-  public function frapper(Personnage $perso)
+  public function frapper(Personnage $persoAFrapper)
   {
     // Avant tout : vérifier qu'on ne se frappe pas soi-même.
     // Si c'est le cas, on stoppe tout en renvoyant une valeur signifiant que le personnage ciblé est le personnage qui attaque.  
     // On indique au personnage frappé qu'il doit recevoir des dégâts.
 
-    if ($perso->id() == $this->_id) 
+    if ($persoAFrapper->id() == $this->_id) 
     {
         return self::CEST_MOI;
     }
     else 
     {
-        return $perso->recevoirDegats();
+        $this->gagnerExperience();
+        return $persoAFrapper->recevoirDegats();
     }
     
   }
@@ -108,7 +147,7 @@ class Personnage
     // On augmente de 5 les dégâts.
     // Si on a 100 de dégâts ou plus, la méthode renverra une valeur signifiant que le personnage a été tué.
     // Sinon, elle renverra une valeur signifiant que le personnage a bien été frappé.
-    $this->_degats += 5;
+    $this->_degats += 35;
     if ($this->_degats >= 100) 
     {
         return self::PERSONNAGE_TUE;
@@ -117,6 +156,21 @@ class Personnage
     {
         return self::PERSONNAGE_FRAPPE;
     }
+  }
+
+  public function gagnerExperience()
+  {
+    $this->_experience += 20;
+    if ($this->_experience >= 100) 
+    {
+        $this->gagnerNiveau();
+        $this->_experience -=100;
+    }
+  }
+
+  public function gagnerNiveau()
+  {
+    $this->_niveau += 1;
   }
 
   public function nomValide()

@@ -16,7 +16,7 @@ if (isset($_GET['deconnexion']))
   exit();
 }
   // Password: MAC = "root" ; Linux = ""
-$db = new PDO('mysql:host=localhost;dbname=OCR_Classes', 'root', 'root');
+$db = new PDO('mysql:host=localhost;dbname=OCR_Classes', 'root', '');
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // On émet une alerte à chaque fois qu'une requête a échoué.
 
 $manager = new PersonnagesManager($db);
@@ -94,6 +94,7 @@ elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le fr
         case Personnage::PERSONNAGE_TUE :
           $message = 'Vous avez tué ce personnage !';
           
+          $perso->gagnerNiveau();
           $manager->update($perso);
           $manager->delete($persoAFrapper);
           
@@ -126,7 +127,9 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
       <legend>Mes informations</legend>
       <p>
         Nom : <?= htmlspecialchars($perso->nom()) ?><br />
-        Dégâts : <?= $perso->degats() ?>
+        Dégâts : <?= $perso->degats() ?><br />
+        Niveau : <?= $perso->niveau() ?><br />
+        Expérience : <?= $perso->experience() ?><br />
       </p>
     </fieldset>
     
@@ -145,7 +148,7 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
     {
       foreach ($persos as $unPerso)
       {
-        echo '<a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()), '</a> (dégâts : ', $unPerso->degats(), ')<br />';
+        echo '<a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()), '</a> (dégâts : ', $unPerso->degats(), ' | niveau : ', $unPerso->niveau(), ')<br />';
       }
     }
     ?>
