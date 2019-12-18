@@ -154,9 +154,22 @@ public function count()
 public function fillBdd() 
 {
 // Insert de personnage en bdd
+$arr_perso = [
+  'Bot',
+  'Monkey D.Luffy',
+  'Roronoa Zoro',
+  'Nami',
+  'Usopp',
+  'Sanji',
+  'Nico Robin',
+  'Tony Tony Chopper',
+  'Franky',
+  'Brook'
+];
+$rand = rand(1,100);
 for ($i=0; $i<10 ; $i++)
 {
-  $perso = new Personnage(['nom' => "Luffy$i"]);
+  $perso = new Personnage(['nom' => $arr_perso[$i], 'niveau' => $rand]);
   $this->add($perso);
 }
 }

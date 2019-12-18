@@ -94,3 +94,5 @@ Personnage.php:
 ---------------
 Type: Classe
 Fonctionnement: 
+
+

@@ -194,6 +194,11 @@ else
     </form>
     <?php
 }
+$stock = $manager->getList('Test123321dfvdsfshjkqvyld');
+foreach ($stock as $perso)
+{
+  echo "<strong>".$perso->nom()."</strong> | Niveau: ".$perso->niveau()." | Dégats: ".$perso->degats()."<br><br>";
+}
 ?>
   </body>
 </html>
