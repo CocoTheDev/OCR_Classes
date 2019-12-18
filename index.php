@@ -1,4 +1,54 @@
 <?php
+
+// Create Database
+$host="localhost"; 
+$root="root"; 
+$root_password=""; // Password: MAC = "root" ; Linux = ""
+$dbname = "GameCocoThePimp";
+$conn = mysqli_connect($host, $root, $root_password);
+
+if(! $conn ){
+   echo 'Connected failure<br>';
+}
+echo 'Connected successfully<br>';
+$sql = "CREATE DATABASE IF NOT EXISTS GameCocoThePimp";
+
+if (mysqli_query($conn, $sql)) {
+   echo "Database created successfully";
+} else {
+   echo "Error creating database: " . mysqli_error($conn);
+}
+mysqli_close($conn);
+
+// Create new PDO
+try 
+{
+  $db = new PDO("mysql:host=$host;dbname=$dbname", $root, $root_password);
+  $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING);
+} 
+catch (PDOException $e) 
+{
+  die("DB ERROR: ". $e->getMessage());
+}
+
+// Create Table Personnages
+try 
+{
+  $db->exec("CREATE TABLE IF NOT EXISTS Personnages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nom VARCHAR(30) NOT NULL ,
+    degats INT NOT NULL DEFAULT '0',
+    niveau INT NOT NULL DEFAULT '1',
+    experience INT NOT NULL DEFAULT '0',
+    strength INT NOT NULL DEFAULT '1'
+    )");
+} 
+catch (PDOException $e) 
+{
+  die("DB ERROR: ". $e->getMessage());
+}
+
+
 // On enregistre notre autoload.
 function chargerClasse($classname)
 {
@@ -15,9 +65,6 @@ if (isset($_GET['deconnexion']))
   header('Location: .');
   exit();
 }
-  // Password: MAC = "root" ; Linux = ""
-$db = new PDO('mysql:host=localhost;dbname=OCR_Classes', 'root', '');
-$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING); // On émet une alerte à chaque fois qu'une requête a échoué.
 
 $manager = new PersonnagesManager($db);
 

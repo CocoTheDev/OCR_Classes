@@ -60,7 +60,7 @@ Fonctions de base:
 
 
 ----------------------------------------
-Fonctions Base de données (boutons):
+Fonctions Base de données (boutons) :
 ----------------------------------------
 - "Creer ce personnage": créer un personnage avec le nom que vous avez stipulé.
 - "Utiliser ce personnage": utilise le personnage propre au nom stipulé.
@@ -71,9 +71,9 @@ Fonctions Base de données (boutons):
 ----------------------------------------
 Ajouts futurs:
 ----------------------------------------
+- Possibilité de switcher de personnage de la bdd lorsque nous sommes connecté (100%)
 - Ajout des personnages en bdd avec des attributs aléatoires (3/4 fait).
 - Intégration de la création de la table Personnages directement via le fichier Manager
-- Possibilité de switcher de personnage de la bdd lorsque nous sommes connecté
 - Limiter le nombre de frappes avec un système d'énergie et de recharge d'énergie
 - La possibilité de soigner son héro de tous les dégâts subit, 1 fois toutes les 24h.
 
