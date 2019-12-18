@@ -134,7 +134,7 @@ class Personnage
       $strength = (int) $strength;
       if ($strength > 0)
       {
-          $this->_strength = $strength*$this->niveau();
+          $this->_strength = $this->_niveau;
       }
       else 
       {
@@ -155,9 +155,10 @@ class Personnage
     }
     else 
     {
-        $this->gagnerExperience();
-        $store = $this->_strength;
-        return $persoAFrapper->recevoirDegats($store);
+        $store = $persoAFrapper->_niveau;
+        $this->gagnerExperience($store);
+        $store2 = $this->_strength;
+        return $persoAFrapper->recevoirDegats($store2);
     }
     
   }
@@ -170,7 +171,7 @@ class Personnage
     $this->_degats = $this->_degats+15*$adversaireStrength;
 
     // ici on peut set la vie de nos perso avant qu'ils meurent
-    if ($this->_degats >= 250) 
+    if ($this->_degats >= 50000) 
     {
         return self::PERSONNAGE_TUE;
     }
@@ -180,9 +181,9 @@ class Personnage
     }
   }
 
-  public function gagnerExperience()
+  public function gagnerExperience($adversaireNiveau)
   {
-    $this->_experience += 20;
+    $this->_experience = $this->_experience + $adversaireNiveau*3;
     if ($this->_experience >= 100) 
     {
         $this->gagnerNiveau();
