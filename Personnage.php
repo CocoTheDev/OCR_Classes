@@ -134,7 +134,8 @@ class Personnage
       $strength = (int) $strength;
       if ($strength > 0)
       {
-          $this->_strength = $this->_niveau;
+          // Ici on set la force par rapport au niveau du perso
+          $this->_strength = $this->_niveau*5;
       }
       else 
       {
@@ -163,15 +164,17 @@ class Personnage
     
   }
   
-  public function recevoirDegats($adversaireStrength)
+  public function recevoirDegats($forceFrappeur)
   {
     // On augmente les dégâts proportionnellement à la force.
     // Si on a 100 de dégâts ou plus, la méthode renverra une valeur signifiant que le personnage a été tué.
     // Sinon, elle renverra une valeur signifiant que le personnage a bien été frappé.
-    $this->_degats = $this->_degats+15*$adversaireStrength;
+
+    // Ici on incrémente les dégâts par rapport à la force du frappeur
+    $this->_degats = $this->_degats+$forceFrappeur;
 
     // ici on peut set la vie de nos perso avant qu'ils meurent
-    if ($this->_degats >= 50000) 
+    if ($this->_degats >= 250*$this->_niveau) 
     {
         return self::PERSONNAGE_TUE;
     }
@@ -183,11 +186,14 @@ class Personnage
 
   public function gagnerExperience($adversaireNiveau)
   {
+    // Ici on set l'expérience gagnée après chaque frappe
     $this->_experience = $this->_experience + $adversaireNiveau*3;
-    if ($this->_experience >= 100) 
+    // Ici on set l'expérience requise pour passer de niveau
+    if ($this->_experience >= 100*$this->_niveau) 
     {
         $this->gagnerNiveau();
-        $this->_experience -=100;
+        $this->setStrength($this->_strength);
+        $this->_experience = 0;
     }
   }
 

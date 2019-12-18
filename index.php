@@ -107,6 +107,7 @@ elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le fr
           $message = 'Vous avez tué ce personnage !';
           
           $perso->gagnerNiveau();
+          $perso->setStrength($perso->strength());
           $manager->update($perso);
           $manager->delete($persoAFrapper);
           
