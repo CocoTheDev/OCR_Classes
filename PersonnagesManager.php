@@ -70,7 +70,7 @@ public function update(Personnage $perso)
   // update d'un personnage - SQL Update
   $req = $this->_db->prepare('
     UPDATE Personnages
-    SET nom = :nom, degats = :degats, niveau = :niveau, experience = :experience, force = :force
+    SET nom = :nom, degats = :degats, niveau = :niveau, experience = :experience, strength = :strength
     WHERE id = :id
   ');
   $req->bindValue(':nom', $perso->nom());
@@ -78,7 +78,7 @@ public function update(Personnage $perso)
   $req->bindValue(':id', $perso->id());
   $req->bindValue(':niveau', $perso->niveau());
   $req->bindValue(':experience', $perso->experience());
-  $req->bindValue(':force', $perso->force());
+  $req->bindValue(':strength', $perso->strength());
   $req->execute();
 
 }

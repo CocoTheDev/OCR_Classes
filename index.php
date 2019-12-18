@@ -141,7 +141,7 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
         Nom : <?= htmlspecialchars($perso->nom()) ?><br />
         Dégâts : <?= $perso->degats() ?><br />
         Niveau : <?= $perso->niveau() ?><br />
-        Force : <?= $perso->force() ?><br />
+        Force : <?= $perso->strength() ?><br />
         Expérience : <?= $perso->experience() ?><br />
       </p>
     </fieldset>
@@ -171,7 +171,7 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
     {
       foreach ($persos as $unPerso)
       {
-        echo '<a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()), '</a> (dégâts : ', $unPerso->degats(), ' | niveau : ', $unPerso->niveau(), ' | force : ', $unPerso->force(), ')<br />';
+        echo '<a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()), '</a> (dégâts : ', $unPerso->degats(), ' | niveau : ', $unPerso->niveau(), ' | force : ', $unPerso->strength(), ')<br />';
       }
     }
     ?>

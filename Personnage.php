@@ -6,7 +6,7 @@ class Personnage
           $_nom,
           $_niveau,
           $_experience,
-          $_force;
+          $_strength;
   
   const CEST_MOI = 1;
   const PERSONNAGE_TUE = 2;
@@ -66,9 +66,9 @@ class Personnage
     return $this->_niveau;
   }
 
-  public function force() 
+  public function strength() 
   {
-    return $this->_force;
+    return $this->_strength;
   }
 
 
@@ -129,12 +129,12 @@ class Personnage
       }
   }
 
-  public function setForce($force)
+  public function setStrength($strength)
   {
-      $force = (int) $force;
-      if ($force > 0)
+      $strength = (int) $strength;
+      if ($strength > 0)
       {
-          $this->_force = $force*$this->niveau();
+          $this->_strength = $strength*$this->niveau();
       }
       else 
       {
@@ -156,18 +156,21 @@ class Personnage
     else 
     {
         $this->gagnerExperience();
-        return $persoAFrapper->recevoirDegats($this->_force);
+        $store = $this->_strength;
+        return $persoAFrapper->recevoirDegats($store);
     }
     
   }
   
-  public function recevoirDegats($forceAdversaire)
+  public function recevoirDegats($adversaireStrength)
   {
     // On augmente les dégâts proportionnellement à la force.
     // Si on a 100 de dégâts ou plus, la méthode renverra une valeur signifiant que le personnage a été tué.
     // Sinon, elle renverra une valeur signifiant que le personnage a bien été frappé.
-    $this->_degats = ( $this->_degats*$forceAdversaire );
-    if ($this->_degats >= 100) 
+    $this->_degats = $this->_degats+15*$adversaireStrength;
+
+    // ici on peut set la vie de nos perso avant qu'ils meurent
+    if ($this->_degats >= 250) 
     {
         return self::PERSONNAGE_TUE;
     }
@@ -190,6 +193,12 @@ class Personnage
   public function gagnerNiveau()
   {
     $this->_niveau += 1;
+    $this->gagnerStrength();
+  }
+
+  public function gagnerStrength()
+  {
+    $this->_strength += 1;
   }
 
   public function nomValide()
