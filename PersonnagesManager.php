@@ -10,6 +10,11 @@ public function __construct($db)
 }
 
 
+public function db() 
+{
+  return $this->_db;
+}
+
 public function setDb($db) 
 {
   $this->_db = $db;
@@ -30,6 +35,9 @@ public function add(Personnage $perso)
   $perso->hydrate([
     'id' => $this->_db->lastInsertId(),
     'degats' => 0,
+    'experience' => 0,
+    'niveau' => $perso->setNiveau(1),
+    'force' => $perso->setStrength(1),
   ]);
 }
 
@@ -166,9 +174,10 @@ $arr_perso = [
   'Franky',
   'Brook'
 ];
-$rand = rand(1,100);
+
 for ($i=0; $i<10 ; $i++)
 {
+  $rand = rand(1,100);
   $perso = new Personnage(['nom' => $arr_perso[$i], 'niveau' => $rand]);
   $this->add($perso);
 }

@@ -71,17 +71,11 @@ Fonctions Base de données (boutons):
 ----------------------------------------
 Ajouts futurs:
 ----------------------------------------
+- Ajout des personnages en bdd avec des attributs aléatoires (3/4 fait).
 - Intégration de la création de la table Personnages directement via le fichier Manager
-- Listing des personnages de la base de donnée sur l'écran d'accueil
 - Possibilité de switcher de personnage de la bdd lorsque nous sommes connecté
-- Ajout des personnages en bdd avec des attributs aléatoires.
 - Limiter le nombre de frappes avec un système d'énergie et de recharge d'énergie
-- La possibilité de soigner son héro de tous les dégâts subit 1 fois toutes les 24h.
-- Possibilité de créer et rejoindre un clan
-- Amélioration du front
-- Hébergement + post sur reddit afin d'avoir un feedback
-- Possibilité de combattre des boss ayant des caractéristiques spéciales
-- Créations d'équipements
+- La possibilité de soigner son héro de tous les dégâts subit, 1 fois toutes les 24h.
 
 
 

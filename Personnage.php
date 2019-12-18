@@ -1,7 +1,7 @@
 <?php
 class Personnage
 {
-  private $_id,
+  public $_id,
           $_degats,
           $_nom,
           $_niveau,
@@ -118,28 +118,27 @@ class Personnage
 
   public function setNiveau($niveau)
   {
-      $niveau = (int) $niveau;
-      if ($niveau > 0)
-      {
-          $this->_niveau = $niveau;
-      }
-      else 
-      {
-          return "Niveau non valide";
-      }
+    if ($niveau == TRUE)
+    {
+      $this->_niveau = $niveau;
+    }
+    else 
+    {
+      $this->_niveau = 1;
+    }
   }
 
-  public function setStrength($strength)
+  public function setStrength($niveau)
   {
-      $strength = (int) $strength;
-      if ($strength > 0)
+      $niveau = (int) $niveau;
+      if ($niveau > 0)
       {
           // Ici on set la force par rapport au niveau du perso
           $this->_strength = $this->_niveau*5;
       }
       else 
       {
-          return "Force non valide";
+          return "Votre niveau est suspect";
       }
   }
 

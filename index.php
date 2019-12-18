@@ -67,6 +67,11 @@ elseif (isset($_POST['deletebdd']))
   $manager->deleteBdd();
 }
 
+elseif (isset($_GET['nomPersoChoisit']))
+{
+  $perso = $manager->get($_GET['nomPersoChoisit']);
+}
+
 
 
 
@@ -173,6 +178,16 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
       foreach ($persos as $unPerso)
       {
         echo '<a href="?frapper=', $unPerso->id(), '">', htmlspecialchars($unPerso->nom()), '</a> (dégâts : ', $unPerso->degats(), ' | niveau : ', $unPerso->niveau(), ' | force : ', $unPerso->strength(), ')<br />';
+        ?>
+        <p>
+        <form action="" method="get">
+          <input type="hidden" value="<?= $unPerso->nom() ?>" name="nomPersoChoisit" />
+          <input type="submit" value="Switcher avec ce personnage"/>
+        </form>
+        </p>
+        <hr>
+        <br>
+        <?php
       }
     }
     ?>
@@ -193,11 +208,6 @@ else
       </p>
     </form>
     <?php
-}
-$stock = $manager->getList('Test123321dfvdsfshjkqvyld');
-foreach ($stock as $perso)
-{
-  echo "<strong>".$perso->nom()."</strong> | Niveau: ".$perso->niveau()." | Dégats: ".$perso->degats()."<br><br>";
 }
 ?>
   </body>
