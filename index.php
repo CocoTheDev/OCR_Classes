@@ -1,18 +1,22 @@
 <?php
 
-// Create Database
+// Create Connection
 $host="localhost"; 
 $root="root"; 
 $root_password=""; // Password: MAC = "root" ; Linux = ""
 $dbname = "GameCocoThePimp";
 $conn = mysqli_connect($host, $root, $root_password);
 
+// Check connection
 if(! $conn ){
    echo 'Connected failure<br>';
 }
 echo 'Connected successfully<br>';
+
+// Create Database
 $sql = "CREATE DATABASE IF NOT EXISTS GameCocoThePimp";
 
+// Check Database
 if (mysqli_query($conn, $sql)) {
    echo "Database created successfully";
 } else {
