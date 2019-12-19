@@ -23,7 +23,7 @@ Chaque personnage frappé subit des "dégâts", une fois le seuil de dégât dé
 4) Cliquez sur "Créer ce personnage".
 5) Cliquez sur le nom des personnages de la liste pour leur infliger des dégâts.
 
-# Ce que j'ai mis en application lors de ce projet POO php:
+# Ce que j'ai mis en application lors de ce projet:
 
 - Créer/utiliser une classe
 
