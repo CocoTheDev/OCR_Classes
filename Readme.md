@@ -1,4 +1,4 @@
-# Projet Php Programmation Orientée Objet
+# Projet Php - Programmation Orientée Objet
 # Origines:
 
 Ce projet est un tp proposé sur OpenClassRoom concernant l'apprentissage de la Programmation Orientée Objet sous Php.
