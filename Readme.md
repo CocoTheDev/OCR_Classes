@@ -98,6 +98,8 @@ Retrouvez tout le code: [Ici](https://github.com/CocoThePimp/OCR_Classes/blob/ma
 
 - Créer une base de donnée ainsi qu'une table en utilisant du code dur plutôt que PhpMyAdmin
 
+- Commiter mon travail le plus souvent possible
+
 
 # Futurs Release:
 
@@ -106,7 +108,7 @@ Il y a peu de chance que ces release sortent un jour, étant donné que je vais 
 
 - Intégration de la création de la table Personnages directement via le fichier Manager _(fait à 100%)_
 
-- Ajout des personnages en bdd avec des attributs aléatoires _(fait à 80%, un bug persiste)_.
+- Ajout des personnages en bdd avec des attributs aléatoires _(fait à 80%)_.
 
 - Limiter le nombre de frappes avec un système d'énergie et de recharge d'énergie
 
