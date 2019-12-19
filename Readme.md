@@ -1,3 +1,4 @@
+# Projet Php Programmation Orientée Objet
 # Origines:
 
 Ce projet est un tp proposé sur OpenClassRoom concernant l'apprentissage de la Programmation Orientée Objet sous Php.
@@ -22,60 +23,6 @@ Chaque personnage frappé subit des "dégâts", une fois le seuil de dégât dé
 4) Cliquez sur "Créer ce personnage".
 5) Cliquez sur le nom des personnages de la liste pour leur infliger des dégâts.
 
-# Documentation Personnage
-## Attributs de la Classe:
-### Nom:
-Correspond au nom du personnage.
-
-### Dégâts: 
-Représente les dégâts que le personnage a subit.
-Une fois le seuil dépassé le personnage meurt.
-Le seuil est de 250 fois le niveau du personnage.
-
-### Niveau:
-Les personnages sont par défaut de niveau 1. 
-Il existe 2 moyens de monter de niveau.
-1) Tuer un personnage.
-2) Avoir assez d'expérience.
-
-### Expérience:
-Vous gagnez de l'expérience après avoir frappé un personnage.
-L'expérience que vous gagnez est proportionnelle à 3 fois le niveau du personnage que vous frappez.
-
-L'expérience vous sert à monter en niveau. Le seuil requis pour un passage de niveau est de 100x votre niveau.
-
-### Force:
-La force représente les dégâts que vous allez infliger après chaque frappes.
-La force est proportionnelle à 5 fois votre niveau.
-
-## Fonctions de la Classe:
-### - Frapper un personnage
-### - Recevoir des dégâts
-### - Gagner de l'expérience
-### - Gagner un niveau
-### - Gagner de la force
-Retrouvez tout le code: [Ici](https://github.com/CocoThePimp/OCR_Classes/blob/master/Personnage.php)
-
-# Documentation Personnages Manager
-## Attributs de la Classe:
-### $_db:
-Correspond à la variable reliant la base de données.
-
-
-## Fonctions de la Classe:
-### - Ajout d'un personnage à la base de données
-### - Suppression d'un personnage à la base de données
-### - Mise à jour d'un personnage à la base de données
-### - Récupérer les infos d'un personnage
-### - Dresser la liste de tous les personnages
-### - Savoir si un personnage existe
-### - Compte le nombre de personnage en base de données
-### - Remplissage auto de la base de données
-### - Suppression de toutes les données en base
-
-Retrouvez tout le code: [Ici](https://github.com/CocoThePimp/OCR_Classes/blob/master/PersonnagesManager.php)
-
-
 # Ce que j'ai mis en application lors de ce projet POO php:
 
 - Créer/utiliser une classe
@@ -98,8 +45,65 @@ Retrouvez tout le code: [Ici](https://github.com/CocoThePimp/OCR_Classes/blob/ma
 
 - Créer une base de donnée ainsi qu'une table en utilisant du code dur plutôt que PhpMyAdmin
 
-- Commiter mon travail le plus souvent possible
+- Soigner la présentation d'un readme _(lol)_ 
 
+# Documentation Personnage
+## Attributs de la Classe:
+### Nom:
+Correspond au nom du personnage.
+
+### Dégâts: 
+Représente les dégâts que le personnage a subit.
+Une fois le seuil dépassé le personnage meurt.
+Le seuil est de 250 fois le niveau du personnage.
+
+### Niveau*:
+Les personnages sont par défaut de niveau 1. 
+Il existe 2 moyens de monter de niveau.
+1) Tuer un personnage.
+2) Avoir assez d'expérience.
+
+### Expérience*:
+Vous gagnez de l'expérience après avoir frappé un personnage.
+L'expérience que vous gagnez est proportionnelle à 3 fois le niveau du personnage que vous frappez.
+
+L'expérience vous sert à monter en niveau. Le seuil requis pour un passage de niveau est de 100x votre niveau.
+
+### Force*:
+La force représente les dégâts que vous allez infliger après chaque frappes.
+La force est proportionnelle à 5 fois votre niveau.
+
+_*Attributs non présents dans le cours_
+
+## Fonctions de la Classe:
+### - Frapper un personnage
+### - Recevoir des dégâts
+### - Gagner de l'expérience*
+### - Gagner un niveau*
+### - Gagner de la force*
+_*Fonctions non présentes dans le cours_
+
+Retrouvez tout le code: [Ici](https://github.com/CocoThePimp/OCR_Classes/blob/master/Personnage.php)
+
+# Documentation Personnages Manager
+## Attributs de la Classe:
+### $_db:
+Correspond à la variable reliant la base de données.
+
+
+## Fonctions de la Classe:
+### - Ajout d'un personnage à la base de données
+### - Suppression d'un personnage à la base de données
+### - Mise à jour d'un personnage à la base de données
+### - Récupérer les infos d'un personnage
+### - Dresser la liste de tous les personnages
+### - Savoir si un personnage existe
+### - Compte le nombre de personnage en base de données
+### - Remplissage auto de la base de données*
+### - Suppression de toutes les données en base*
+_*Fonctions non présentes dans le cours_
+
+Retrouvez tout le code: [Ici](https://github.com/CocoThePimp/OCR_Classes/blob/master/PersonnagesManager.php)
 
 # Futurs Release:
 
@@ -108,7 +112,7 @@ Il y a peu de chance que ces release sortent un jour, étant donné que je vais 
 
 - Intégration de la création de la table Personnages directement via le fichier Manager _(fait à 100%)_
 
-- Ajout des personnages en bdd avec des attributs aléatoires _(fait à 80%)_.
+- Ajout des personnages en bdd avec des attributs aléatoires _(fait à 80%, un bug persiste)_.
 
 - Limiter le nombre de frappes avec un système d'énergie et de recharge d'énergie
 
