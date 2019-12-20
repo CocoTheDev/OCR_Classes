@@ -6,7 +6,10 @@ class Personnage
             $nom,
             $niveau,
             $experience,
-            $strength;
+            $strength,
+            $atout,
+            $sleep,
+            $gang;
   
   const CEST_MOI = 1;
   const PERSONNAGE_TUE = 2;
@@ -15,6 +18,7 @@ class Personnage
   public function __construct(array $donnees)
   {
     $this->hydrate($donnees);
+    $this->gang = strtolower(static::class);
   }
 
   public function hydrate(array $donnees) 
@@ -69,6 +73,16 @@ class Personnage
   public function strength() 
   {
     return $this->strength;
+  }
+
+  public function atout() 
+  {
+    return $this->atout;
+  }
+
+  public function gang() 
+  {
+    return $this->gang;
   }
 
 
@@ -140,6 +154,16 @@ class Personnage
       {
           return "Votre niveau est suspect";
       }
+  }
+
+  public function setAtout($atout)
+  {
+    $this->atout = $atout;
+  }
+
+  public function setSleep($sleep)
+  {
+    $this->sleep = $sleep;
   }
 
   // DO METHODS
