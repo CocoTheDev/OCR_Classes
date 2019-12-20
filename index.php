@@ -3,15 +3,20 @@
 // Create Connection
 $host="localhost"; 
 $root="root"; 
-$root_password=""; // Password: MAC = "root" ; Linux = ""
+$root_password="root"; // Password: MAC = "root" ; Linux = ""
 $dbname = "GameCocoThePimp";
 $conn = mysqli_connect($host, $root, $root_password);
 
 // Check connection
-if(! $conn ){
+if(! $conn )
+{
    echo 'Connected failure<br>';
 }
-echo 'Connected successfully<br>';
+else
+{
+  echo 'Connected successfully<br>';
+}
+
 
 // Create Database
 $sql = "CREATE DATABASE IF NOT EXISTS GameCocoThePimp";
@@ -118,9 +123,9 @@ elseif (isset($_POST['deletebdd']))
   $manager->deleteBdd();
 }
 
-elseif (isset($_GET['nomPersoChoisit']))
+elseif (isset($_GET['switcherPerso']))
 {
-  $perso = $manager->get($_GET['nomPersoChoisit']);
+  $perso = $manager->get($_GET['switcherPerso']);
 }
 
 
@@ -135,14 +140,14 @@ elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le fr
   
   else
   {
-    if (!$manager->exists((int) $_GET['frapper']))
+    if (!$manager->exists( $_GET['frapper']))
     {
       $message = 'Le personnage que vous voulez frapper n\'existe pas !';
     }
     
     else
     {
-      $persoAFrapper = $manager->get((int) $_GET['frapper']);
+      $persoAFrapper = $manager->get($_GET['frapper']);
       
       $retour = $perso->frapper($persoAFrapper); // On stocke dans $retour les éventuelles erreurs ou messages que renvoie la méthode frapper.
       
@@ -232,7 +237,11 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
         ?>
         <p>
         <form action="" method="get">
-          <input type="hidden" value="<?= $unPerso->nom() ?>" name="nomPersoChoisit" />
+          <input type="hidden" value="<?= $unPerso->nom() ?>" name="frapper" />
+          <input type="submit" value="Frapper ce personnage"/>
+        </form>
+        <form action="" method="get">
+          <input type="hidden" value="<?= $unPerso->nom() ?>" name="switcherPerso" />
           <input type="submit" value="Switcher avec ce personnage"/>
         </form>
         </p>

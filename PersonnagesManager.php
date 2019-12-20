@@ -179,6 +179,7 @@ for ($i=0; $i<10 ; $i++)
 {
   $rand = rand(1,100);
   $perso = new Personnage(['nom' => $arr_perso[$i], 'niveau' => $rand]);
+  print_r($perso);
   $this->add($perso);
 }
 }
