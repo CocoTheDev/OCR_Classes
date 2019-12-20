@@ -1,12 +1,12 @@
 <?php
 class Personnage
 {
-  public $_id,
-          $_degats,
-          $_nom,
-          $_niveau,
-          $_experience,
-          $_strength;
+  protected $id,
+            $degats,
+            $nom,
+            $niveau,
+            $experience,
+            $strength;
   
   const CEST_MOI = 1;
   const PERSONNAGE_TUE = 2;
@@ -43,32 +43,32 @@ class Personnage
   // GETTERS //
   public function id() 
   {
-    return $this->_id;
+    return $this->id;
   }
 
   public function nom() 
   {
-    return $this->_nom;
+    return $this->nom;
   }
 
   public function degats() 
   {
-    return $this->_degats;
+    return $this->degats;
   }
 
   public function experience() 
   {
-    return $this->_experience;
+    return $this->experience;
   }
 
   public function niveau() 
   {
-    return $this->_niveau;
+    return $this->niveau;
   }
 
   public function strength() 
   {
-    return $this->_strength;
+    return $this->strength;
   }
 
 
@@ -78,7 +78,7 @@ class Personnage
     $id = (int) $id;
     if ($id >0) 
     {
-        $this->_id = $id;
+        $this->id = $id;
     }
   }
 
@@ -86,7 +86,7 @@ class Personnage
   {
       if (is_string($nom))
       {
-          $this->_nom = $nom;
+          $this->nom = $nom;
       }
   }
 
@@ -95,7 +95,7 @@ class Personnage
       $degats = (int) $degats;
       if ($degats >= 0)
       {
-          $this->_degats = $degats;
+          $this->degats = $degats;
       }
       else 
       {
@@ -108,7 +108,7 @@ class Personnage
       $experience = (int) $experience;
       if ($experience >= 0)
       {
-          $this->_experience = $experience;
+          $this->experience = $experience;
       }
       else 
       {
@@ -120,11 +120,11 @@ class Personnage
   {
     if ($niveau == TRUE)
     {
-      $this->_niveau = $niveau;
+      $this->niveau = $niveau;
     }
     else 
     {
-      $this->_niveau = 1;
+      $this->niveau = 1;
     }
   }
 
@@ -134,7 +134,7 @@ class Personnage
       if ($niveau > 0)
       {
           // Ici on set la force par rapport au niveau du perso
-          $this->_strength = $this->_niveau*5;
+          $this->strength = $this->niveau*5;
       }
       else 
       {
@@ -149,15 +149,15 @@ class Personnage
     // Si c'est le cas, on stoppe tout en renvoyant une valeur signifiant que le personnage ciblé est le personnage qui attaque.  
     // On indique au personnage frappé qu'il doit recevoir des dégâts.
 
-    if ($persoAFrapper->id() == $this->_id) 
+    if ($persoAFrapper->id() == $this->id) 
     {
         return self::CEST_MOI;
     }
     else 
     {
-        $store = $persoAFrapper->_niveau;
+        $store = $persoAFrapper->niveau;
         $this->gagnerExperience($store);
-        $store2 = $this->_strength;
+        $store2 = $this->strength;
         return $persoAFrapper->recevoirDegats($store2);
     }
     
@@ -170,10 +170,10 @@ class Personnage
     // Sinon, elle renverra une valeur signifiant que le personnage a bien été frappé.
 
     // Ici on incrémente les dégâts par rapport à la force du frappeur
-    $this->_degats = $this->_degats+$forceFrappeur;
+    $this->degats = $this->degats+$forceFrappeur;
 
     // ici on peut set la vie de nos perso avant qu'ils meurent
-    if ($this->_degats >= 250*$this->_niveau) 
+    if ($this->degats >= 250*$this->niveau) 
     {
         return self::PERSONNAGE_TUE;
     }
@@ -186,30 +186,30 @@ class Personnage
   public function gagnerExperience($adversaireNiveau)
   {
     // Ici on set l'expérience gagnée après chaque frappe
-    $this->_experience = $this->_experience + $adversaireNiveau*3;
+    $this->experience = $this->experience + $adversaireNiveau*3;
     // Ici on set l'expérience requise pour passer de niveau
-    if ($this->_experience >= 100*$this->_niveau) 
+    if ($this->experience >= 100*$this->niveau) 
     {
         $this->gagnerNiveau();
-        $this->setStrength($this->_strength);
-        $this->_experience = 0;
+        $this->setStrength($this->strength);
+        $this->experience = 0;
     }
   }
 
   public function gagnerNiveau()
   {
-    $this->_niveau += 1;
+    $this->niveau += 1;
     $this->gagnerStrength();
   }
 
   public function gagnerStrength()
   {
-    $this->_strength += 1;
+    $this->strength += 1;
   }
 
   public function nomValide()
   {
-    return !empty($this->_nom);
+    return !empty($this->nom);
   }
 
 }
