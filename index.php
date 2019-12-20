@@ -49,7 +49,10 @@ try
     degats INT NOT NULL DEFAULT '0',
     niveau INT NOT NULL DEFAULT '1',
     experience INT NOT NULL DEFAULT '0',
-    strength INT NOT NULL DEFAULT '1'
+    strength INT NOT NULL DEFAULT '1',
+    gang enum('magicien','guerrier') NOT NULL,
+    atout INT NOT NULL DEFAULT '100',
+    sleep INT NOT NULL DEFAULT '0'
     )");
 } 
 catch (PDOException $e) 
