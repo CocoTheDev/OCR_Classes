@@ -19,6 +19,7 @@ class Personnage
   {
     $this->hydrate($donnees);
     $this->gang = strtolower(static::class);
+    $this->setSleep(strtotime('now'));
   }
 
   public function hydrate(array $donnees) 
@@ -83,6 +84,11 @@ class Personnage
   public function gang() 
   {
     return $this->gang;
+  }
+
+  public function sleep() 
+  {
+    return $this->sleep;
   }
 
 
@@ -158,12 +164,13 @@ class Personnage
 
   public function setAtout($atout)
   {
-    $this->atout = $atout;
+    
+    ($atout >= 0 && $atout <= 100)? $this->atout = $atout : "Atout non valide";
   }
 
-  public function setSleep($sleep)
+  public function setSleep($time)
   {
-    $this->sleep = $sleep;
+    $this->time = (int) $time;
   }
 
   // DO METHODS
@@ -172,17 +179,21 @@ class Personnage
     // Avant tout : vérifier qu'on ne se frappe pas soi-même.
     // Si c'est le cas, on stoppe tout en renvoyant une valeur signifiant que le personnage ciblé est le personnage qui attaque.  
     // On indique au personnage frappé qu'il doit recevoir des dégâts.
+    // checker si le personnage frappé n'est pas endormi
 
-    if ($persoAFrapper->id() == $this->id) 
+    if ($persoAFrapper->sleep() == 0)
     {
-        return self::CEST_MOI;
-    }
-    else 
-    {
-        $store = $persoAFrapper->niveau;
-        $this->gagnerExperience($store);
-        $store2 = $this->strength;
-        return $persoAFrapper->recevoirDegats($store2);
+      if ($persoAFrapper->id() == $this->id) 
+      {
+          return self::CEST_MOI;
+      }
+      else 
+      {
+          $store = $persoAFrapper->niveau;
+          $this->gagnerExperience($store);
+          $store2 = $this->strength;
+          return $persoAFrapper->recevoirDegats($store2);
+      }
     }
     
   }
@@ -236,5 +247,16 @@ class Personnage
     return !empty($this->nom);
   }
 
-}
+  public function statut()
+  {
+    if ($this->sleep < strtotime('now'))
+    {
+      return "Réveillé";
+    }
+    else
+    {
+      return "Endormi";
+    }
+  }
 
+}

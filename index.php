@@ -204,10 +204,13 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
       <legend>Mes informations</legend>
       <p>
         Nom : <?= htmlspecialchars($perso->nom()) ?><br />
+        Classe : <?= htmlspecialchars($perso->gang()) ?><br />
         Dégâts : <?= $perso->degats() ?><br />
         Niveau : <?= $perso->niveau() ?><br />
         Force : <?= $perso->strength() ?><br />
         Expérience : <?= $perso->experience() ?><br />
+        Atout : <?= $perso->atout() ?>%<br />
+        Statut : <?= $perso->statut() ?><br />
       </p>
     </fieldset>
 
