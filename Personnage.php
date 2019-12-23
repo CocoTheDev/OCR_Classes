@@ -1,5 +1,5 @@
 <?php
-class Personnage
+abstract class Personnage
 {
   protected $id,
             $degats,
@@ -191,7 +191,7 @@ class Personnage
 
     if ($persoAFrapper->sleep() <= strtotime('now'))
     {
-      if ($persoAFrapper->id() == $this->id) 
+      if ($persoAFrapper->id() === $this->id()) 
       {
           return self::CEST_MOI;
       }

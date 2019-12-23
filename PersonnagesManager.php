@@ -61,34 +61,22 @@ public function add(Personnage $perso)
 
 public function get($info) 
 {
-  // Si le paramètre est un entier, on veut récupérer le personnage avec son identifiant.
+  // On veut récupérer le personnage avec son nom.
   // Exécute une requête de type SELECT avec une clause WHERE, et retourne un objet Personnage.
-  // Sinon, on veut récupérer le personnage avec son nom.
-  // Exécute une requête de type SELECT avec une clause WHERE, et retourne un objet Personnage.
-  
-  if(is_int($info))
-  {
-    $req = $this->_db->prepare('SELECT * FROM Personnages WHERE id= :id');
-    $req->bindValue(':id', $info);
-    $req->execute();
+  $info = (string) $info;
 
-    $donnees = $req->fetch(PDO::FETCH_ASSOC);
-    return new Personnage($donnees);
-  }
-  elseif (is_string($info))
-  {
     $req = $this->_db->prepare('SELECT * FROM Personnages WHERE nom = :nom');
     $req->bindValue(':nom', $info);
     $req->execute();
 
-    $donnees = $req->fetch(PDO::FETCH_ASSOC);
-    return new Personnage($donnees);
-  }
-  else 
-  {
-    return "Données non recevable";
-  }
+    $perso = $req->fetch(PDO::FETCH_ASSOC);
 
+    switch ($perso['gang'])
+    {
+      case 'guerrier': return new Guerrier($perso);
+      case 'magicien': return new Magicien($perso);
+      default: return null;
+    }
 }
 
 public function update(Personnage $perso) 
@@ -132,9 +120,14 @@ public function getList($nom)
   {
     if ($donnees['nom'] !== $nom)
     {
-      $persos[] = new Personnage($donnees);
+      switch ($donnees['gang'])
+      {
+        case 'guerrier': array_push($persos, new Guerrier($donnees));
+        case 'magicien': array_push($persos, new Magicien($donnees));
+      }
     }
   }
+
   return $persos;
 }
 

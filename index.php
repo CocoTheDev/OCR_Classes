@@ -250,7 +250,7 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
     {
       foreach ($persos as $unPerso)
       {
-        echo htmlspecialchars($unPerso->nom()), ' (dégâts : ', $unPerso->degats(), ' | niveau : ', $unPerso->niveau(), ' | force : ', $unPerso->strength(), ')<br />';
+        echo htmlspecialchars($unPerso->nom()). ' (id: '.$unPerso->id().' | dégâts : '. $unPerso->degats(). ' | niveau : '. $unPerso->niveau(). ' | force : '. $unPerso->strength(). ')<br />';
         ?>
         <p>
         <form action="" method="get">
