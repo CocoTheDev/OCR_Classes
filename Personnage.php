@@ -28,15 +28,16 @@ class Personnage
     {
         foreach ($donnees as $key => $value) 
         {
-            if(isset($value))
-            {
-                $method = 'set'.ucfirst($key);
-                if (method_exists($this, $method))
-                {
-                    $this->$method($value);
-                }
-            }
+          $method = 'set'.ucfirst($key);
+          if (method_exists($this, $method))
+          {
+              $this->$method($value);
+          }
         }
+    }
+    else
+    {
+      return "Pas de données à hydrater";
     }
 
   }
@@ -94,79 +95,89 @@ class Personnage
     $id = (int) $id;
     if ($id >0) 
     {
-        $this->id = $id;
+      $this->id = $id;
+    }
+    else
+    {
+      return "L'id ne peut être négatif";
     }
   }
 
   public function setNom($nom) 
   {
-      if (is_string($nom))
-      {
-          $this->nom = $nom;
-      }
+    $nom = (string) $nom;
+    $this->nom = $nom;
   }
 
   public function setDegats($degats)
   {
-      $degats = (int) $degats;
-      if ($degats >= 0)
-      {
-          $this->degats = $degats;
-      }
-      else 
-      {
-          return "Dégats non valide (0<x>100)";
-      }
+    $degats = (int) $degats;
+    if ($degats >= 0)
+    {
+      $this->degats = $degats;
+    }
+    else 
+    {
+      return "Les dégats doivent être positifs";
+    }
   }
 
   public function setExperience($experience)
   {
-      $experience = (int) $experience;
-      if ($experience >= 0)
-      {
-          $this->experience = $experience;
-      }
-      else 
-      {
-          return "Expérience reçue non valide";
-      }
+    $experience = (int) $experience;
+    if ($experience >= 0)
+    {
+      $this->experience = $experience;
+    }
+    else
+    {
+      return "L'expérience ne peut pas être négative";
+    }
   }
 
   public function setNiveau($niveau)
   {
-    if ($niveau == TRUE)
+    $niveau = (int) $niveau;
+    if ($niveau > 0)
     {
       $this->niveau = $niveau;
     }
     else 
     {
-      $this->niveau = 1;
+      return "Le niveau doit être positif";
     }
   }
 
   public function setStrength($niveau)
   {
-      $niveau = (int) $niveau;
-      if ($niveau > 0)
-      {
-          // Ici on set la force par rapport au niveau du perso
-          $this->strength = $this->niveau*5;
-      }
-      else 
-      {
-          return "Votre niveau est suspect";
-      }
+    $niveau = (int) $niveau;
+    if ($niveau > 0)
+    {
+      // Ici on set la force par rapport au niveau du perso
+      $this->strength = $this->niveau * 5;
+    }
+    else 
+    {
+      return "Votre niveau est suspect";
+    }
   }
 
   public function setAtout($atout)
   {
-    
-    ($atout >= 0 && $atout <= 100)? $this->atout = $atout : "Atout non valide";
+    if ($atout >= 0 && $atout <= 100)
+    {
+      $this->atout = $atout;
+    }
+    else 
+    {
+      return "Atout non valide";
+    }
   }
 
   public function setSleep($time)
   {
-    $this->sleep = (int) $time;
+    $time = (int) $time;
+    $this->sleep = $time;
   }
 
 
@@ -186,15 +197,15 @@ class Personnage
       }
       else 
       {
-          $store = $persoAFrapper->niveau;
-          $this->gagnerExperience($store);
-          $store2 = $this->strength;
-          return $persoAFrapper->recevoirDegats($store2);
+        $store = $persoAFrapper->niveau;
+        $this->gagnerExperience($store);
+        $store2 = $this->strength;
+        return $persoAFrapper->recevoirDegats($store2);
       }
     }
     else 
     {
-      echo "Votre personnage dort, il ne peut pas agir.";
+      return "Votre personnage dort, il ne peut pas agir.";
     }
     
   }
@@ -211,11 +222,11 @@ class Personnage
     // ici on peut set la vie de nos perso avant qu'ils meurent
     if ($this->degats >= 250*$this->niveau) 
     {
-        return self::PERSONNAGE_TUE;
+      return self::PERSONNAGE_TUE;
     }
     else 
     {
-        return self::PERSONNAGE_FRAPPE;
+      return self::PERSONNAGE_FRAPPE;
     }
   }
 
@@ -226,9 +237,9 @@ class Personnage
     // Ici on set l'expérience requise pour passer de niveau
     if ($this->experience >= 100*$this->niveau) 
     {
-        $this->gagnerNiveau();
-        $this->setStrength($this->strength);
-        $this->experience = 0;
+      $this->gagnerNiveau();
+      $this->setStrength($this->strength);
+      $this->experience = 0;
     }
   }
 
