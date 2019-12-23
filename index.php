@@ -267,6 +267,10 @@ else
     <form action="" method="post">
       <p>
         Nom : <input type="text" name="nom" maxlength="50" />
+        <select name = "classeSelected" multiple size = 2>   
+            <option value = "magicien">Magicien</option> 
+            <option value = "guerrier">Guerrier</option>  
+        </select> 
         <input type="submit" value="Créer ce personnage" name="creer" />
         <input type="submit" value="Utiliser ce personnage" name="utiliser" /><br><br>
         <input type="submit" value="Remplir la BDD" name="fillbdd" />
