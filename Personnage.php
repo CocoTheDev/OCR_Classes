@@ -36,10 +36,6 @@ class Personnage
                     $this->$method($value);
                 }
             }
-            else 
-            {
-                return "Il n'y a pas de valeur dans ce champ: ".$key;
-            }
         }
     }
 
@@ -170,8 +166,9 @@ class Personnage
 
   public function setSleep($time)
   {
-    $this->time = (int) $time;
+    $this->sleep = (int) $time;
   }
+
 
   // DO METHODS
   public function frapper(Personnage $persoAFrapper)
@@ -181,7 +178,7 @@ class Personnage
     // On indique au personnage frappé qu'il doit recevoir des dégâts.
     // checker si le personnage frappé n'est pas endormi
 
-    if ($persoAFrapper->sleep() == 0)
+    if ($persoAFrapper->sleep() <= strtotime('now'))
     {
       if ($persoAFrapper->id() == $this->id) 
       {
@@ -194,6 +191,10 @@ class Personnage
           $store2 = $this->strength;
           return $persoAFrapper->recevoirDegats($store2);
       }
+    }
+    else 
+    {
+      echo "Votre personnage dort, il ne peut pas agir.";
     }
     
   }

@@ -28,17 +28,35 @@ public function add(Personnage $perso)
   // Exécution de la requête.
   // Hydratation du personnage passé en paramètre avec assignation de son identifiant et des dégâts initiaux (= 0).
 
-  $req = $this->_db->prepare('INSERT INTO Personnages(nom) VALUES (:nom)');
+  $id = $this->_db->lastInsertId()+1;
+  $perso->setSleep(strtotime('now'));
+  $perso->setStrength($perso->niveau());
+  $perso->hydrate(
+    [
+      'id' => $id,
+      'nom' => $perso->nom(),
+      'degats' => 0,
+      'niveau' => $perso->niveau(),
+      'experience' => 0,
+      'strength' => $perso->strength(),
+      'gang' => $perso->gang(),
+      'atout' => 100,
+      'sleep' => $perso->sleep()
+      ]
+  );
+
+  $req = $this->_db->prepare('INSERT INTO Personnages(nom, niveau, degats, experience, sleep, strength, gang, atout) VALUES (:nom, :niveau, :degats, :experience, :sleep, :strength, :gang, :atout)');
   $req->bindValue(':nom', $perso->nom());
+  $req->bindValue(':niveau', $perso->niveau());
+  $req->bindValue(':degats', $perso->degats());
+  $req->bindValue(':experience', $perso->experience());
+  $req->bindValue(':sleep', $perso->sleep());
+  $req->bindValue(':strength', $perso->strength());
+  $req->bindValue(':gang', $perso->gang());
+  $req->bindValue(':atout', $perso->atout());
   $req->execute();
 
-  $perso->hydrate([
-    'id' => $this->_db->lastInsertId(),
-    'degats' => 0,
-    'experience' => 0,
-    'niveau' => $perso->setNiveau(1),
-    'force' => $perso->setStrength(1),
-  ]);
+
 }
 
 public function get($info) 
@@ -78,7 +96,7 @@ public function update(Personnage $perso)
   // update d'un personnage - SQL Update
   $req = $this->_db->prepare('
     UPDATE Personnages
-    SET nom = :nom, degats = :degats, niveau = :niveau, experience = :experience, strength = :strength
+    SET nom = :nom, degats = :degats, niveau = :niveau, experience = :experience, strength = :strength, sleep = :sleep
     WHERE id = :id
   ');
   $req->bindValue(':nom', $perso->nom());
@@ -87,6 +105,7 @@ public function update(Personnage $perso)
   $req->bindValue(':niveau', $perso->niveau());
   $req->bindValue(':experience', $perso->experience());
   $req->bindValue(':strength', $perso->strength());
+  $req->bindValue(':sleep', $perso->sleep());
   $req->execute();
 
 }
@@ -178,6 +197,7 @@ $arr_perso = [
 for ($i=0; $i<10 ; $i++)
 {
   $rand = rand(1,100);
+  $timeNow = strtotime('now');
   $perso = new Personnage(['nom' => $arr_perso[$i], 'niveau' => $rand]);
   $this->add($perso);
 }
