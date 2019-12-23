@@ -87,20 +87,31 @@ if (isset($_SESSION['perso'])) // Si la session perso existe, on restaure l'obje
 
 if (isset($_POST['creer']) && isset($_POST['nom'])) // Si on a voulu créer un personnage.
 {
-  $perso = new Personnage(['nom' => $_POST['nom'], 'niveau' => 1]); // On crée un nouveau personnage.
-  if (!$perso->nomValide())
+  if ($_POST['classeSelected'] == 'magicien')
   {
-    $message = 'Le nom choisi est invalide.';
-    unset($perso);
+    $perso = new Magicien (['nom' => $_POST['nom'], 'niveau' => 1, 'gang' => 'magicien']);
   }
-  elseif ($manager->exists($perso->nom()))
+  else 
   {
-    $message = 'Le nom du personnage est déjà pris.';
-    unset($perso);
+    $perso = new Guerrier (['nom' => $_POST['nom'], 'niveau' => 1, 'gang' => 'guerrier']);
   }
-  else
+
+  if (isset($perso))
   {
-    $manager->add($perso);
+    if (!$perso->nomValide())
+    {
+      $message = 'Le nom choisi est invalide.';
+      unset($perso);
+    }
+    elseif ($manager->exists($perso->nom()))
+    {
+      $message = 'Le nom du personnage est déjà pris.';
+      unset($perso);
+    }
+    else
+    {
+      $manager->add($perso);
+    }
   }
 }
 
@@ -267,16 +278,26 @@ else
     <form action="" method="post">
       <p>
         Nom : <input type="text" name="nom" maxlength="50" />
-        <select name = "classeSelected" multiple size = 2>   
+
+        <select name = "classeSelected">   
             <option value = "magicien">Magicien</option> 
             <option value = "guerrier">Guerrier</option>  
-        </select> 
+        </select> <br><br>
+
         <input type="submit" value="Créer ce personnage" name="creer" />
         <input type="submit" value="Utiliser ce personnage" name="utiliser" /><br><br>
+      </p>
+    </form>
+
+    <fieldset>
+      <legend>Gestion BDD</legend>
+      <form action="" method="post">
+      <p>
         <input type="submit" value="Remplir la BDD" name="fillbdd" />
         <input type="submit" value="Supprimer la BDD" name="deletebdd" />
       </p>
     </form>
+    </fieldset>
     <?php
 }
 ?>

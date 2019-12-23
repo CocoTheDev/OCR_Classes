@@ -2,11 +2,6 @@
 class Magicien extends Personnage
 {
 
-  public function __construct()
-  {
-    
-  }
-
   public function endormir(Personnage $perso)
   {
     $timeNow = strtotime('now');
