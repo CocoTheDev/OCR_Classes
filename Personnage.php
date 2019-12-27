@@ -19,7 +19,6 @@ abstract class Personnage
   {
     $this->hydrate($donnees);
     $this->gang = strtolower(static::class);
-    $this->setSleep(strtotime('now'));
   }
 
   public function hydrate(array $donnees) 
@@ -254,11 +253,11 @@ abstract class Personnage
     $now = strtotime('now');
     if ($this->sleep < $now)
     {
-      return "Réveillé";
+      return 'Réveillé';
     }
     else
     {
-      return "Endormi";
+      return 'Endormi';
     }
   }
 

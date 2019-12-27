@@ -23,7 +23,7 @@ $sql = "CREATE DATABASE IF NOT EXISTS GameCocoThePimp";
 
 // Check Database
 if (mysqli_query($conn, $sql)) {
-   echo "Database created successfully";
+   echo "Database created successfully\n";
 } else {
    echo "Error creating database: " . mysqli_error($conn);
 }
@@ -142,6 +142,15 @@ elseif (isset($_GET['switcherPerso']))
   $perso = $manager->get($_GET['switcherPerso']);
 }
 
+elseif (isset($_GET['seFaitEndormir']))
+{ 
+  $persoAEndormir = $manager->get($_GET['seFaitEndormir']);
+  $perso->endormir($persoAEndormir);  
+  $manager->update($persoAEndormir);
+  $manager->update($perso);
+  echo "\nVous venez d'endormir ".$persoAEndormir->nom()."\n";
+}
+
 
 
 
@@ -222,7 +231,7 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
         Force : <?= $perso->strength() ?><br />
         Expérience : <?= $perso->experience() ?><br />
         Atout : <?= $perso->atout() ?>%<br />
-        Statut : <?= $perso->statut() ?><br />
+        Satut : <?= $perso->statut() ?><br />
       </p>
     </fieldset>
 
@@ -264,13 +273,36 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
         ')</p><br />';
         ?>
         <p>
+        <!-- Frapper un personnage -->
         <form action="" method="get">
           <input type="hidden" value="<?= $unPerso->nom() ?>" name="frapper" />
-          <input type="submit" value="Frapper ce personnage"/>
+          <?php
+          if ($perso->statut() == 'Réveillé')
+            {
+              echo "<input type='submit' value='Frapper ce personnage'/>";
+            }
+          else
+            {
+              $messageStatut = 'Vous dormez';
+            }
+
+          ?>
         </form>
+        <?php
+        // Endormir le personnage
+        if ($perso->gang() == 'magicien')
+        { echo "
+        <form action='' method='get'>
+          <input type='hidden' value='".$unPerso->nom()."' name='seFaitEndormir' />
+          <input type='submit' value='Lancer un sort sur ce personnage'/>
+        </form>
+        ";
+        }
+        ?>
+        <!-- Changer de personnage -->
         <form action="" method="get">
           <input type="hidden" value="<?= $unPerso->nom() ?>" name="switcherPerso" />
-          <input type="submit" value="Switcher avec ce personnage"/>
+          <input type="submit" value="Échanger avec ce personnage"/>
         </form>
         </p>
         <hr>
@@ -302,7 +334,7 @@ else
 
     <fieldset>
       <legend>Gestion BDD</legend>
-      <form action="index.php" method="post">
+      <form action="" method="post">
       <p>
         <input type="submit" value="Remplir la BDD" name="fillbdd" />
         <input type="submit" value="Supprimer la BDD" name="deletebdd" />

@@ -28,7 +28,7 @@ public function add(Personnage $perso)
   // Exécution de la requête.
   // Hydratation du personnage passé en paramètre avec assignation de son identifiant et des dégâts initiaux (= 0).
 
-  $perso->setSleep(strtotime('now'));
+  $perso->setSleep(strtotime('Now')-100);
   $perso->setStrength($perso->niveau());
   $perso->hydrate(
     [
@@ -54,8 +54,6 @@ public function add(Personnage $perso)
   $req->bindValue(':gang', $perso->gang());
   $req->bindValue(':atout', $perso->atout());
   $req->execute();
-
-  echo $perso->id();
 }
 
 public function get($info) 
