@@ -149,7 +149,6 @@ elseif (isset($_GET['seFaitEndormir']))
   $manager->update($persoAEndormir);
   $manager->update($perso);
   echo "\nVous venez d'endormir ".$persoAEndormir->nom()."\n";
-
 }
 
 
@@ -185,6 +184,7 @@ elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le fr
           $message = 'Le personnage a bien été frappé !';
           
           $manager->update($persoAFrapper);
+          $manager->update($perso);
           
           break;
         
@@ -192,7 +192,6 @@ elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le fr
           $message = 'Vous avez tué ce personnage !';
           
           $perso->gagnerNiveau();
-          $perso->setStrength($perso->niveau());
           $manager->update($perso);
           $manager->delete($persoAFrapper);
           

@@ -188,10 +188,8 @@ abstract class Personnage
       }
       else 
       {
-        $store = $persoAFrapper->niveau;
-        $this->gagnerExperience($store);
-        $store2 = $this->strength;
-        return $persoAFrapper->recevoirDegats($store2);
+        $this->gagnerExperience($persoAFrapper->niveau);
+        return $persoAFrapper->recevoirDegats($this->strength);
       }
     }
     else 

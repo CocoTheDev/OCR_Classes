@@ -1,6 +1,8 @@
 # Projet Php - Programmation Orientée Objet
 # Origines:
 
+Version 2.0
+
 Ce projet est un tp proposé sur OpenClassRoom concernant l'apprentissage de la Programmation Orientée Objet sous Php.
 J'ai ensuite poursuivit ce projet afin d'y ajouter d'autres fonctions et mécaniques afin de bien assimiler ce qui nous a été enseigné.
 
@@ -107,15 +109,27 @@ Retrouvez tout le code: [Ici](https://github.com/CocoThePimp/OCR_Classes/blob/ma
 
 # Futurs Release:
 
-Il y a peu de chance que ces release sortent un jour, étant donné que je vais poursuivre mon apprentissage du POO sur d'autre projet, et ensuite passerait à Laravel.
+Il y a peu de chance que ces release sortent un jour, étant donné que je vais poursuivre mon apprentissage du POO possiblement sur d'autre projets, et ensuite je passerait à Laravel.
 - Possibilité de switcher de personnage de la bdd lorsque nous sommes connecté _(fait à 100%)_
 
 - Intégration de la création de la table Personnages directement via le fichier Manager _(fait à 100%)_
 
-- Ajout des personnages en bdd avec des attributs aléatoires _(fait à 80%, un bug persiste)_.
+- Ajout des personnages en bdd avec des attributs aléatoires _(fait à 100%)_.
 
 - Limiter le nombre de frappes avec un système d'énergie et de recharge d'énergie
 
 - La possibilité de soigner son héro de tous les dégâts subit, 1 fois toutes les 24h.
+
+# Ajouts de la version 2
+Dans la continuité du TP, nous avons créé des classes filles de la classe Personnage. Chacune ayant son propre atout de combat. 
+
+## L'atout
+L'atout est utilisé lors des compétences spéciales de chaque classe. Il est récupéré lorsque le personnage monte d'un niveau.
+
+## Le Guerrier
+Atout: Le guerrier peut réduire les dégâts qu'il reçoit.
+
+## Le magicien
+Atout: Le magicien peut lancer un sort afin d'endormir sa cible.
 
   # Created by CocoThePimp
