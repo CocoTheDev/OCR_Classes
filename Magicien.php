@@ -4,14 +4,13 @@ class Magicien extends Personnage
 
   public function endormir(Personnage $perso)
   {
-    $timeNow = strtotime('now');
     if ($this->id() !== $perso->id())
     {
-      if ($timeNow >= $perso->sleep())
+      if (time() >= $perso->sleep())
       {
         if ($this->atout() > 0)
         {
-          $timeWakeUp = $timeNow + 60*$this->atout();
+          $timeWakeUp = time() + 60*$this->atout();
           $perso->setSleep($timeWakeUp);
           $this->setAtout(0);
         }

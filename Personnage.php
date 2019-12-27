@@ -180,7 +180,7 @@ abstract class Personnage
     // On indique au personnage frappé qu'il doit recevoir des dégâts.
     // checker si le personnage frappé n'est pas endormi
 
-    if ($persoAFrapper->sleep() <= strtotime('now'))
+    if ($persoAFrapper->sleep() <= time())
     {
       if ($persoAFrapper->id() === $this->id()) 
       {
@@ -241,6 +241,7 @@ abstract class Personnage
   {
     $this->niveau += 1;
     $this->setStrength($this->niveau);
+    $this->setAtout(100);
   }
 
   public function nomValide()
@@ -250,8 +251,7 @@ abstract class Personnage
 
   public function statut()
   {
-    $now = strtotime('now');
-    if ($this->sleep < $now)
+    if ($this->sleep < time())
     {
       return 'Réveillé';
     }
@@ -260,6 +260,32 @@ abstract class Personnage
       return 'Endormi';
     }
   }
+
+  public function seReveiller()
+  {
+    $secondes = $this->sleep;
+    $secondes -= time();
+    
+    $heures = floor($secondes / 3600);
+    $secondes -= $heures * 3600;
+    $minutes = floor($secondes / 60);
+    $secondes -= $minutes * 60;
+    
+    $heures .= $heures <= 1 ? ' heure' : ' heures';
+    $minutes .= $minutes <= 1 ? ' minute' : ' minutes';
+    $secondes .= $secondes <= 1 ? ' seconde' : ' secondes';
+    
+    return $heures . ', ' . $minutes . ' et ' . $secondes;
+  }
+
+
+
+
+
+
+
+
+
 
 
 }

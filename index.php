@@ -149,6 +149,7 @@ elseif (isset($_GET['seFaitEndormir']))
   $manager->update($persoAEndormir);
   $manager->update($perso);
   echo "\nVous venez d'endormir ".$persoAEndormir->nom()."\n";
+
 }
 
 
@@ -233,6 +234,11 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
         Atout : <?= $perso->atout() ?>%<br />
         Satut : <?= $perso->statut() ?><br />
       </p>
+      <?php
+      if ($perso->statut() == 'Endormi'){
+          echo "<p>Ce personnage se réveillera dans: ". $perso->seReveiller()."</p>";
+        }
+        ?>
     </fieldset>
 
     <fieldset>
@@ -271,6 +277,10 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
         ' | Classe : '. $unPerso->gang(). 
         ' | Statut : '. $unPerso->statut(). 
         ')</p><br />';
+        
+        if ($unPerso->statut() == 'Endormi'){
+          echo "<p>Ce personnage se réveillera dans: ". $unPerso->seReveiller()."</p>";
+        }
         ?>
         <p>
         <!-- Frapper un personnage -->
@@ -290,7 +300,7 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
         </form>
         <?php
         // Endormir le personnage
-        if ($perso->gang() == 'magicien')
+        if ($perso->gang() == 'magicien' && $unPerso->statut() == 'Réveillé')
         { echo "
         <form action='' method='get'>
           <input type='hidden' value='".$unPerso->nom()."' name='seFaitEndormir' />

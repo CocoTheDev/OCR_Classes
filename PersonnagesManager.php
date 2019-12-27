@@ -28,7 +28,7 @@ public function add(Personnage $perso)
   // Exécution de la requête.
   // Hydratation du personnage passé en paramètre avec assignation de son identifiant et des dégâts initiaux (= 0).
 
-  $perso->setSleep(strtotime('Now')-100);
+  $perso->setSleep(time()-100);
   $perso->setStrength($perso->niveau());
   $perso->hydrate(
     [
@@ -187,8 +187,6 @@ public function fillBdd()
   for ($i=0; $i<10 ; $i++)
   {
     $rand = rand(1,100);
-    $timeNow = strtotime('now');
-
     if($rand < 50)
     {
       $perso = new Magicien(['nom' => $arr_perso[$i], 'niveau' => $rand]);
