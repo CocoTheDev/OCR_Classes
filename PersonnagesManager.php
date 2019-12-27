@@ -28,12 +28,11 @@ public function add(Personnage $perso)
   // Exécution de la requête.
   // Hydratation du personnage passé en paramètre avec assignation de son identifiant et des dégâts initiaux (= 0).
 
-  $id = $this->_db->lastInsertId()+1;
   $perso->setSleep(strtotime('now'));
   $perso->setStrength($perso->niveau());
   $perso->hydrate(
     [
-      'id' => $id,
+      'id' => ($this->_db->lastInsertId() + 1),
       'nom' => $perso->nom(),
       'degats' => 0,
       'niveau' => $perso->niveau(),
@@ -56,7 +55,7 @@ public function add(Personnage $perso)
   $req->bindValue(':atout', $perso->atout());
   $req->execute();
 
-
+  echo $perso->id();
 }
 
 public function get($info) 
@@ -173,8 +172,8 @@ public function count()
 
 public function fillBdd() 
 {
-// Insert de personnage en bdd
-$arr_perso = [
+  // Insert des personnages en bdd
+  $arr_perso = [
   'Bot',
   'Monkey D.Luffy',
   'Roronoa Zoro',
@@ -185,15 +184,24 @@ $arr_perso = [
   'Tony Tony Chopper',
   'Franky',
   'Brook'
-];
+  ];
 
-for ($i=0; $i<10 ; $i++)
-{
-  $rand = rand(1,100);
-  $timeNow = strtotime('now');
-  $perso = new Personnage(['nom' => $arr_perso[$i], 'niveau' => $rand]);
-  $this->add($perso);
-}
+  for ($i=0; $i<10 ; $i++)
+  {
+    $rand = rand(1,100);
+    $timeNow = strtotime('now');
+
+    if($rand < 50)
+    {
+      $perso = new Magicien(['nom' => $arr_perso[$i], 'niveau' => $rand]);
+      $this->add($perso);
+    }
+    else
+    {
+      $perso = new Guerrier(['nom' => $arr_perso[$i], 'niveau' => $rand]);
+      $this->add($perso);
+    }
+  }
 }
 
 public function deleteBdd() 

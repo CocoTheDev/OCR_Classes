@@ -182,7 +182,7 @@ elseif (isset($_GET['frapper'])) // Si on a cliqué sur un personnage pour le fr
           $message = 'Vous avez tué ce personnage !';
           
           $perso->gagnerNiveau();
-          $perso->setStrength($perso->strength());
+          $perso->setStrength($perso->niveau());
           $manager->update($perso);
           $manager->delete($persoAFrapper);
           
@@ -214,8 +214,9 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
     <fieldset>
       <legend>Mes informations</legend>
       <p>
+        Id : <?= $perso->id() ?><br />
         Nom : <?= htmlspecialchars($perso->nom()) ?><br />
-        Classe : <?= htmlspecialchars($perso->gang()) ?><br />
+        Classe : <?= $perso->gang() ?><br />
         Dégâts : <?= $perso->degats() ?><br />
         Niveau : <?= $perso->niveau() ?><br />
         Force : <?= $perso->strength() ?><br />
@@ -250,7 +251,17 @@ if (isset($perso)) // Si on utilise un personnage (nouveau ou pas).
     {
       foreach ($persos as $unPerso)
       {
-        echo htmlspecialchars($unPerso->nom()). ' (id: '.$unPerso->id().' | dégâts : '. $unPerso->degats(). ' | niveau : '. $unPerso->niveau(). ' | force : '. $unPerso->strength(). ')<br />';
+        echo 
+        '<h3>'.
+        htmlspecialchars($unPerso->nom()).
+        '</h3><p>'.
+        ' (id: '.$unPerso->id().
+        ' | Dégâts : '. $unPerso->degats(). 
+        ' | Niveau : '. $unPerso->niveau(). 
+        ' | Force : '. $unPerso->strength(). 
+        ' | Classe : '. $unPerso->gang(). 
+        ' | Statut : '. $unPerso->statut(). 
+        ')</p><br />';
         ?>
         <p>
         <form action="" method="get">
@@ -291,7 +302,7 @@ else
 
     <fieldset>
       <legend>Gestion BDD</legend>
-      <form action="" method="post">
+      <form action="index.php" method="post">
       <p>
         <input type="submit" value="Remplir la BDD" name="fillbdd" />
         <input type="submit" value="Supprimer la BDD" name="deletebdd" />
@@ -310,3 +321,4 @@ if (isset($perso)) // Si on a créé un personnage, on le stocke dans une variab
     }
 
 ?>
+

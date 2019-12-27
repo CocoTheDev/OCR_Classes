@@ -92,15 +92,7 @@ abstract class Personnage
   // SETTERS //
   public function setId($id) 
   {
-    $id = (int) $id;
-    if ($id >0) 
-    {
-      $this->id = $id;
-    }
-    else
-    {
-      return "L'id ne peut être négatif";
-    }
+    $this->id = $id;
   }
 
   public function setNom($nom) 
@@ -237,21 +229,19 @@ abstract class Personnage
     // Ici on set l'expérience requise pour passer de niveau
     if ($this->experience >= 100*$this->niveau) 
     {
+      // Probleme avec cette section, l'exp gagnée n'est pas correcte ainsi que les passages de niveau@
+      for ($x = $this->experience; $x>=100; $x = $x -100)
+      {
       $this->gagnerNiveau();
-      $this->setStrength($this->strength);
-      $this->experience = 0;
+      $this->experience = $x;
+      }
     }
   }
 
   public function gagnerNiveau()
   {
     $this->niveau += 1;
-    $this->gagnerStrength();
-  }
-
-  public function gagnerStrength()
-  {
-    $this->strength += 1;
+    $this->setStrength($this->niveau);
   }
 
   public function nomValide()
@@ -261,7 +251,8 @@ abstract class Personnage
 
   public function statut()
   {
-    if ($this->sleep < strtotime('now'))
+    $now = strtotime('now');
+    if ($this->sleep < $now)
     {
       return "Réveillé";
     }
